@@ -1,20 +1,19 @@
 # Blockchain Input plugin
 
-Cryptowerk is a blockchain-as-a-service (BaaS) service experimental input plugin that listens
-for IoT event messages from a User Datagram Protocol (udp) and creates an
-immutable seal on each event received.
+This experimental socket listener plugin that uses the Cryptowerk blockchain-as-a-service (BaaS) to
+listen for IoT messages over (udp) and create an immutable seal on each event received.
 
-With the digital seal IoT events can now be matched to its original to verify proof
+With these digital seals, any IoT event can now be matched to its original to verify proof
 of integrity. This plugin should be used for demo purposes only.
 
 ## Quick start
 
-1. Checkout  telegraf 
+1. Checkout  telegraf
 ```
 $ go get github.com/influxdata/telegraf
 ```
 
-2. Checkout this repository and copy goldilocks directory to telegraf 
+2. Checkout this repository and copy goldilocks directory to telegraf
 ```
 $ git clone https://github.com/chobbs/telegraf-blockchain.git
 $ cd telegraf-blockchain
@@ -28,23 +27,23 @@ $ echo  "import  _ \"github.com/influxdata/telegraf/plugins/inputs/cryptowerk\" 
 
 ```
 
-4. Build 
+4. Build
 
 ```
 $ cd $GOPATH/src/github.com/influxdata/telegraf
-$ make 
+$ make
 ```
 
 5. Getting configurations
 
-You can get telegraf and all plugins configurations into a single config file by issuing a following command. 
+You can get telegraf and all plugins configurations into a single config file by issuing a following command.
 ```
-$ ./telegraf config  > telegraf.conf 
+$ ./telegraf config  > telegraf.conf
 ```
-you can find input.cryptowerk section, and uncomment the section. 
+you can find input.cryptowerk section, and uncomment the section.
 
 
-## Configuration of Cryptowerk plugin 
+## Configuration of Cryptowerk plugin
 
 Use the following configuration for experimentation with this plugin.
 
