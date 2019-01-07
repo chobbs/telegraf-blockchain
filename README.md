@@ -1,6 +1,6 @@
 # Blockchain Input plugin
 
-This experimental socket listener plugin that uses the Cryptowerk blockchain-as-a-service (BaaS) to
+This experimental socket listener plugin for Influxdata/Telegraf that uses the Cryptowerk blockchain-as-a-service (BaaS) to
 listen for IoT messages over (udp) and create an immutable seal on each event received.
 
 With these digital seals, any IoT event can now be matched to its original to verify proof
