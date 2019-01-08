@@ -30,70 +30,6 @@ func testEmptyLog(t *testing.T) func() {
 	}
 }
 
-func TestSocketListener_tcp_tls(t *testing.T) {
-	defer testEmptyLog(t)()
-
-	sl := newSocketListener()
-	sl.ServiceAddress = "tcp://127.0.0.1:0"
-	sl.ServerConfig = *pki.TLSServerConfig()
-
-	acc := &testutil.Accumulator{}
-	err := sl.Start(acc)
-	require.NoError(t, err)
-	defer sl.Stop()
-
-	tlsCfg, err := pki.TLSClientConfig().TLSConfig()
-	require.NoError(t, err)
-
-	secureClient, err := tls.Dial("tcp", sl.Closer.(net.Listener).Addr().String(), tlsCfg)
-	require.NoError(t, err)
-
-	testSocketListener(t, sl, secureClient)
-}
-
-func TestSocketListener_unix_tls(t *testing.T) {
-	tmpdir, err := ioutil.TempDir("", "telegraf")
-	require.NoError(t, err)
-	defer os.RemoveAll(tmpdir)
-	sock := filepath.Join(tmpdir, "socket_listener.TestSocketListener_unix_tls.sock")
-
-	sl := newSocketListener()
-	sl.ServiceAddress = "unix://" + sock
-	sl.ServerConfig = *pki.TLSServerConfig()
-
-	acc := &testutil.Accumulator{}
-	err = sl.Start(acc)
-	require.NoError(t, err)
-	defer sl.Stop()
-
-	tlsCfg, err := pki.TLSClientConfig().TLSConfig()
-	tlsCfg.InsecureSkipVerify = true
-	require.NoError(t, err)
-
-	secureClient, err := tls.Dial("unix", sock, tlsCfg)
-	require.NoError(t, err)
-
-	testSocketListener(t, sl, secureClient)
-}
-
-func TestSocketListener_tcp(t *testing.T) {
-	defer testEmptyLog(t)()
-
-	sl := newSocketListener()
-	sl.ServiceAddress = "tcp://127.0.0.1:0"
-	sl.ReadBufferSize = 1024
-
-	acc := &testutil.Accumulator{}
-	err := sl.Start(acc)
-	require.NoError(t, err)
-	defer sl.Stop()
-
-	client, err := net.Dial("tcp", sl.Closer.(net.Listener).Addr().String())
-	require.NoError(t, err)
-
-	testSocketListener(t, sl, client)
-}
-
 func TestSocketListener_udp(t *testing.T) {
 	defer testEmptyLog(t)()
 
@@ -107,54 +43,6 @@ func TestSocketListener_udp(t *testing.T) {
 	defer sl.Stop()
 
 	client, err := net.Dial("udp", sl.Closer.(net.PacketConn).LocalAddr().String())
-	require.NoError(t, err)
-
-	testSocketListener(t, sl, client)
-}
-
-func TestSocketListener_unix(t *testing.T) {
-	tmpdir, err := ioutil.TempDir("", "telegraf")
-	require.NoError(t, err)
-	defer os.RemoveAll(tmpdir)
-	sock := filepath.Join(tmpdir, "socket_listener.TestSocketListener_unix.sock")
-
-	defer testEmptyLog(t)()
-
-	os.Create(sock)
-	sl := newSocketListener()
-	sl.ServiceAddress = "unix://" + sock
-	sl.ReadBufferSize = 1024
-
-	acc := &testutil.Accumulator{}
-	err = sl.Start(acc)
-	require.NoError(t, err)
-	defer sl.Stop()
-
-	client, err := net.Dial("unix", sock)
-	require.NoError(t, err)
-
-	testSocketListener(t, sl, client)
-}
-
-func TestSocketListener_unixgram(t *testing.T) {
-	tmpdir, err := ioutil.TempDir("", "telegraf")
-	require.NoError(t, err)
-	defer os.RemoveAll(tmpdir)
-	sock := filepath.Join(tmpdir, "socket_listener.TestSocketListener_unixgram.sock")
-
-	defer testEmptyLog(t)()
-
-	os.Create(sock)
-	sl := newSocketListener()
-	sl.ServiceAddress = "unixgram://" + sock
-	sl.ReadBufferSize = 1024
-
-	acc := &testutil.Accumulator{}
-	err = sl.Start(acc)
-	require.NoError(t, err)
-	defer sl.Stop()
-
-	client, err := net.Dial("unixgram", sock)
 	require.NoError(t, err)
 
 	testSocketListener(t, sl, client)
