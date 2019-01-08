@@ -8,9 +8,9 @@ of integrity. This plugin should be used for demo purposes only.
 
 ## Quick start
 
-1. Signup for a Crypotwerk account  
+1. Signup for a [Crypotwerk account](https://cryptowerk.com/)  
 ```
-Get free trial account: https://cryptowerk.com/
+Get free developer account: https://developers.cryptowerk.com/platform/portal/register.html?p=Trial
 ```
 
 2. Checkout  telegraf
