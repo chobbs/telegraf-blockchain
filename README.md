@@ -72,10 +72,7 @@ Use the following configuration for experimentation with this plugin.
   ## Defaults to the OS default.
   # read_buffer_size = 65535
 
-  ## Data format to consume.
-  ## Each data format has its own unique set of configuration options, read
-  ## more about them here:
-  ## https://github.com/influxdata/telegraf/blob/master/docs/DATA_FORMATS_INPUT.md
+  ## Currently tested with Influx Data format only.
   # data_format = "influx"
 ```
 
