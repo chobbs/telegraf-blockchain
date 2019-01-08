@@ -8,33 +8,38 @@ of integrity. This plugin should be used for demo purposes only.
 
 ## Quick start
 
-1. Checkout  telegraf
+1. Signup for a Crypotwerk account  
+```
+Get free trial account: https://cryptowerk.com/
+```
+
+2. Checkout  telegraf
 ```
 $ go get github.com/influxdata/telegraf
 ```
 
-2. Checkout this repository and copy goldilocks directory to telegraf
+3. Checkout this repository and copy goldilocks directory to telegraf
 ```
 $ git clone https://github.com/chobbs/telegraf-blockchain.git
 $ cd telegraf-blockchain
 $ cp -R cryptowerk $GOPATH/src/github.com/influxdata/telegraf/plugin/inputs
 ```
 
-3. Add plugin
+4. Add plugin
 
 ```
 $ echo  "import  _ \"github.com/influxdata/telegraf/plugins/inputs/cryptowerk\" " >> $GOPATH/src/github.com/influxdata/telegraf/plugin/inputs/all/all.go
 
 ```
 
-4. Build
+5. Build
 
 ```
 $ cd $GOPATH/src/github.com/influxdata/telegraf
 $ make
 ```
 
-5. Getting configurations
+6. Getting configurations
 
 You can get telegraf and all plugins configurations into a single config file by issuing a following command.
 ```
